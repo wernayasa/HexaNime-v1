@@ -1,0 +1,201 @@
+<style>
+  .kumastream_list{margin:15px;overflow:hidden}
+  .kumastream_list .nav ol{margin:15px 0;margin-bottom:5px;text-align:center}
+  .kumastream_list .nav ol li{text-align:center;display:inline-block;background:#eee;padding:8px 12px!important;margin:2px;color:#333;border-radius:3px;text-transform:uppercase;cursor:pointer}
+  .kumastream_list .nav ol li:hover{background:#0c70de;color:#fff}
+  .kumastream_list .isi{margin:15px 0;overflow:hidden}
+  .kumastream_list .isi .abjad{display:block;margin-bottom:10px;border-bottom:1px solid #ececec;font-weight:500;text-transform:uppercase;font-size:17px}
+  .kumastream_list .isi .list-post{margin:0 0 15px;overflow:hidden;color:#ddd;font-weight:400;font-size:14px;list-style:none;display:flex;flex-wrap:wrap;gap:4px;}
+  .kumastream_list .isi .list-post li{--wd:calc(33.3333% - 4px);flex:var(--wd);-webkit-flex:var(--wd);line-height:20px;-ms-flex:var(--wd);max-width:var(--wd);overflow:hidden;margin-bottom:7px;padding:10px;border-radius:5px;box-shadow:0 1px 2px rgb(0 0 0 / 20%)}
+  .kumastream_list .isi .list-post li .thumb-az{float:left;overflow:hidden;width:75px}
+  .kumastream_list .isi .list-post li .thumb-az a{display:block;overflow:hidden;padding-top:135%;position:relative;border-radius:3px;background:#f5f5f5}
+  .kumastream_list .isi .list-post li .thumb-az img{position:absolute;top:0;width:100%;height:100%;object-fit:cover}
+  .kumastream_list .isi .list-post li .info-az{overflow:hidden;float:left;width:auto;max-width:75%;padding-left:10px}
+  .kumastream_list .isi .list-post li .info-az a{font-size:14px;display:block;font-weight:500;line-height:21px;margin-bottom:4px}
+  .kumastream_list .isi .list-post li .info-az span{display:block;color:#787777;font-size:12px}
+  .kumastream_list .isi .list-post li .info-az .type-az p{display:inline-block}
+  .Donghua-az{color:#c32020}
+  .Special-az{color:#4a00ffed}
+  .TV-az{color:#0c70de}
+  .Movie-az{color:#d10cde}
+  .ONA-az{color:#de800c}
+  .OVA-az{color:#e91e63}
+  .BD-az{color:#fb0101}
+  .Live.Action-az{color:#531cad}
+  @media screen and (max-width:990px) {
+    .kumastream_list .isi .list-post li{--wd:50%;flex:var(--wd);-webkit-flex:var(--wd);-ms-flex:var(--wd);max-width:var(--wd)}
+  }
+  @media screen and (max-width:768px) {
+    .kumastream_list .isi .list-post li{--wd:100%;flex:var(--wd);-webkit-flex:var(--wd);-ms-flex:var(--wd);max-width:var(--wd)}
+  }
+</style>
+
+<div class="kumastream_list not-prose" data-label="Series" data-url="https://hexanime-bt.blogspot.com">Loading....</div>
+
+<script>/*<![CDATA[*/
+  //Time Ago
+  function timeAgo(e,a){a=a||{postfixes:{"<":" ago",">":" from now"},1000:{singular:"just now",plural:"just now"},60000:{singular:"about a minute",plural:"# minutes"},3600000:{singular:"about an hour",plural:"# hours"},86400000:{singular:"a day",plural:"# days"},2678400000:{singular:"a months",plural:"# months"},31540000000:{singular:"a year",plural:"# years"}};var t=[1e3,6e4,36e5,864e5,26784e5,3154e7],r=Date.parse(e.replace(/\-00:?00$/,""));if(r&&Date.now){for(var n=r-Date.now(),l=Math.abs(n),u=a.postfixes[n<0?"<":">"],i=t[0],o=1;o<t.length;o++)l>t[o]&&(i=t[o]);var s=Math.round(l/i);return a[i][s>0?"plural":"singular"].replace("#",s)+u}}var norwegian={postfixes:{"<":" siden",">":" fra nå"},1000:{singular:"et øyeblikk",plural:"et øyeblikk"},60000:{singular:"omtrent et minutt",plural:"# minutter"},3600000:{singular:"omtrent en time",plural:"# timer"},86400000:{singular:"en dag",plural:"# dager"},31540000000:{singular:"et år",plural:"# år"}};document.addEventListener("DOMContentLoaded",function(){for(var e=document.getElementsByTagName("time"),a=0;a<e.length;a++){var t=e[a],r=timeAgo(t.getAttribute("datetime")||t.textContent,"norsk"===t.className?norwegian:null);r&&(t.textContent=r)}});
+  
+  var start = 1,
+      max = 150,
+      animeListArr = new Array(),
+      grup = new Array(),
+      key = new Array(),
+      abjad = '',
+      print = '',
+      nav = '',
+      noThumbnail = 'https://1.bp.blogspot.com/-XSp30PahyTM/YK37Rq_-M7I/AAAAAAAABCc/01K0sUhw-2YI7vr48wqMIAVoMLDEUdK2gCLcBGAsYHQ/s320/No%2BImage%2BBerkas%2BKita.jpg';
+
+  function runanimeList() {
+    let d = document.querySelector(".kumastream_list");
+    if (d) {
+      let t = document.createElement("script");
+    let tt = document.querySelector('.kumastream_list').dataset.label || false;
+    let b = document.querySelector('.kumastream_list').dataset.url || false;
+    t.src = `${b == false ? '' : `${b}`}/feeds/posts/default${tt == false ? '' : `/-/${tt}`}?alt=json&callback=animeList&start-index=${start}&max-results=${max}`, document.body.appendChild(t)
+    }
+  }
+
+  function animeList(c) {
+    var d = document.querySelector(".kumastream_list");
+    if (!d) {
+      return
+    };
+    d.innerHTML = '';
+    var e = c.feed;
+    if (e.entry.length > 0) {
+      for (var f = 0; f < e.entry.length; f++) {
+        var g = e.entry[f];
+        var h = g.title.$t;
+
+        // Thumbnail resolusi 
+        if (g.media$thumbnail) {
+          thumbnailUrl = g.media$thumbnail.url.replace(/s[0-9]{2}(-c)?/g, "s320-rw");
+        } else {
+          var s = g.content.$t,
+              a = s.indexOf("<img"),
+              b = s.indexOf("src=\"", a),
+              c = s.indexOf("\"", b + 5),
+              da = s.substr(b + 5, c - b - 5);
+          if ((a != -1) && (b != -1) && (c != -1) && (da != "")) {
+            thumbnailUrl = da;
+          } else {
+            thumbnailUrl = noThumbnail;
+          }
+        }
+
+        //published (format: 2022-06-18T19:55:00.000+07:00)
+        var published = g.published.$t;
+
+        //published (format: 2022-06-18T19:55:00.000+07:00)
+        var updated = g.updated.$t;
+
+        // Label
+        labels = [];
+        if (g.category && g.category.length) {
+          for (var c = 0; c < g.category.length; c++) {
+            labels.push(g.category[c].term);
+          }
+        }
+        
+        status = labels.find(i => ['Completed', 'Ongoing', 'Upcoming'].includes(i)) || 'N/A';
+        type = labels.find(i => ['TV', 'Movie', 'BD', 'ONA', 'OVA', 'Special', 'Donghua', 'Live Action'].includes(i)) || 'N/A';
+
+        for (var i = 0; i < g.link.length; i++) {
+          if (g.link[i].rel == 'alternate') {
+            var j = g.link[i].href;
+            if (j && j.length > 0 && h && h.length > 0) {
+              animeListArr.push({
+                "url": j,
+                "judul": h,
+                "thumbnailku": thumbnailUrl,
+                "published": published,
+                "updated": updated,
+                "statusku": status,
+                "typeku": type,
+              })
+            };
+            break
+          }
+        }
+
+      };
+      if (e.entry.length >= max) {
+        start += max;
+        runanimeList()
+      } else {
+        for (var k = animeListArr, n = 0; n < k.length; n++) {
+          var l = k[n].judul.charAt(0).toLowerCase();
+          if (abjad.indexOf(l) == -1) {
+            abjad += l;
+            grup[l] = [{
+              url: k[n].url,
+              judul: k[n].judul,
+              thumbnail: k[n].thumbnailku,
+              published: k[n].published,
+              updated: k[n].updated,
+              status: k[n].statusku,
+              type: k[n].typeku
+            }]
+          } else {
+            grup[l].push({
+              "url": k[n].url,
+              "judul": k[n].judul,
+              "thumbnail": k[n].thumbnailku,
+              "published": k[n].published,
+              "updated": k[n].updated,
+              "status": k[n].statusku,
+              "type": k[n].typeku
+            })
+          }
+        };
+        for (var m in grup) {
+          key.push(m)
+        };
+        var k = key.sort();
+        for (var n = 0; n < k.length; n++) {
+          print += `<div class="abjad"><span data-value="${k[n]}">${k[n]}</span></div><ol class="list-post">`;
+          for (var o = 0, g = grup[k[n]]; o < g.length; o++) {
+            var p = g.sort(function(a, b) {
+              return a.judul > b.judul ? 1 : -1
+            });
+            var item = p[o];
+            print += `<li class="backdrop-filter bg-neutral-900/80">
+                <div class="thumb-az">
+                  <a href="${item.url}" title="${item.judul}">
+                    <img class="" src="${item.thumbnail}" data-src="${item.thumbnail}" alt="${item.judul}">
+                  </a>
+                </div>
+                <div class="info-az">
+                  <a href="${item.url}" title="${item.judul}">${item.judul}</a>
+                  <span class="status-az">Status: ${item.status}</span>
+                  <span class="date-az">published: ${item.published ? timeAgo(item.published) : item.published}</span>
+                  <span class="date-az">updated: ${item.updated ? timeAgo(item.updated) : item.updated}</span>
+                  <span class="type-az">
+                    Type: <p class="${item.type || 'N'}-az">${item.type}</p>
+                  </span>
+                </div>
+              </li>`
+          };
+          print += `</ol>`;
+          nav += `<li>${k[n]}</li>`;
+        };
+        d.innerHTML = `<div class="nav"><ol>${nav}</ol></div><div class="isi">${print}</div>`;
+        scrollanimeList()
+      }
+    }
+  }
+
+  function scrollanimeList() {
+    document.querySelectorAll('.kumastream_list .nav ol li').forEach(function(b) {
+      b.addEventListener('click', function() {
+        var a = `.kumastream_list .isi .abjad [data-value="${this.innerHTML}"]`;
+        document.querySelector(a).parentNode.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      })
+    });
+  }
+  runanimeList()
+/*]]>*/</script>
